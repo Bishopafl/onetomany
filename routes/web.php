@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\User;
+use App\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+/* The CRUD for our laravel application that has one to many relationships between users and posts
+* |--------------------------------------------------------------------------
+* | CREATE
+* |-------------------------------------------------------------------------- 
+*/
+Route::get('/create', function() {
+
+    $user = User::findOrFail(1);
+
+    $post = new Post(['title'=>'This is my cool title','body'=>'This is some cool body text using laravel']);
+
+    $user->posts()->save($post);
+
 });
